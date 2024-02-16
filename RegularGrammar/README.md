@@ -120,6 +120,8 @@ The `accepts` method within this class checks whether a given string is recogniz
 
 ## Results
 After running the code, we get the following result:
+
 ![img.png](img.png)
+
 The first two strings were hardcoded to test that the Automaton doesn't accept the string if it doesn't follow the rules :).
 
