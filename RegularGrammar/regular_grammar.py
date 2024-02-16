@@ -2,7 +2,7 @@ import random
 import Grammar
 
 
-grammar = Grammar()
+grammar = Grammar.Grammar()
 fa = grammar.to_finite_automaton()
 
 test_strings = ['fed', 'jaaae']
