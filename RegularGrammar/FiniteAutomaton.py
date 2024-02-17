@@ -1,21 +1,27 @@
 class FiniteAutomaton:
-    def __init__(self):
-        self.states = {'S', 'L', 'D', 'end'}
-        self.alphabet = {'a', 'b', 'c', 'd', 'e', 'f', 'j'}
-        self.transitions = {
-            ('S', 'a'): {"S"},
-            ('S', 'b'): {"S"},
-            ('S', 'c'): {"D"},
-            ('S', 'd'): {"L"},
-            ('D', 'e'): {"D"},
-            ('D', 'd'): {"end"},
-            ('L', 'e'): {"L", "end"},
-            ('L', 'f'): {"L"},
-            ('L', 'j'): {"D"},
-            ('S', 'e'): {"end"},
-        }
-        self.start_state = 'S'
-        self.accept_states = {'end'}
+    # def __init__(self):
+    #     self.states = {'S', 'L', 'D', 'end'}
+    #     self.alphabet = {'a', 'b', 'c', 'd', 'e', 'f', 'j'}
+    #     self.transitions = {
+    #         ('S', 'a'): {"S"},
+    #         ('S', 'b'): {"S"},
+    #         ('S', 'c'): {"D"},
+    #         ('S', 'd'): {"L"},
+    #         ('D', 'e'): {"D"},
+    #         ('D', 'd'): {"end"},
+    #         ('L', 'e'): {"L", "end"},
+    #         ('L', 'f'): {"L"},
+    #         ('L', 'j'): {"D"},
+    #         ('S', 'e'): {"end"},
+    #     }
+    #     self.start_state = 'S'
+    #     self.accept_states = {'end'}
+    def __init__(self, states, alphabet, transitions, start_state, accept_states):
+        self.states = states
+        self.alphabet = alphabet
+        self.transitions = transitions
+        self.start_state = start_state
+        self.accept_states = accept_states
 
     def accepts(self, input_string):
         current_states = {self.start_state}

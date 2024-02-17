@@ -23,6 +23,18 @@ class Grammar:
         return expand(self.S)
 
     def to_finite_automaton(self):
-        fa = FiniteAutomaton.FiniteAutomaton()
+        fa = FiniteAutomaton.FiniteAutomaton(set(self.V_n) | {'end'}, self.V_t, {}, self.S, {'end'})
+
+        for non_terminal, productions in self.P.items():
+            for production in productions:
+                if len(production) == 2:
+                    input_char, next_state = production
+                    fa.transitions[(non_terminal, input_char)] = {next_state}
+                elif len(production) == 1:
+                    input_char = production[0]
+                    if input_char in self.V_t:
+                        fa.transitions[(non_terminal, input_char)] = {'end'}
+                    else:
+                        fa.transitions[(non_terminal, '')] = {input_char}
 
         return fa
