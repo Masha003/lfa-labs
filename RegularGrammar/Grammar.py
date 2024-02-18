@@ -1,40 +1,41 @@
 import random
-import FiniteAutomaton
+from FiniteAutomaton import FiniteAutomaton
 
 
 class Grammar:
     def __init__(self):
-        self.V_n = {'S', 'L', 'D'}
-        self.V_t = {'a', 'b', 'c', 'd', 'e', 'f', 'j'}
-        self.P = {
-            'S': [['a', 'S'], ['b', 'S'], ['c', 'D'], ['d', 'L'], ['e']],
-            'L': [['e', 'L'], ['f', 'L'], ['j', 'D'], ['e']],
-            'D': [['e', 'D'], ['d']]
-        }
-        self.S = 'S'
+        self.V_t = ["a", "b", "c", "d", "e", "f", "j"]
+        self.V_n = ["S", "L", "D"]
+        self.P = ["S-aS", "S-bS", "S-cD", "S-dL",
+                  "S-e", "L-eL", "L-fL", "L-jD", "L-e", "D-eD", "D-d"]
+        self.S = "S"
 
     def generate_string(self):
         def expand(symbol):
             if symbol in self.V_t:
                 return symbol
-            productions = self.P[symbol]
+            productions = [p.split("-")[1] for p in self.P if p.startswith(symbol + "-")]
             chosen_production = random.choice(productions)
-            return ''.join(expand(sym) for sym in chosen_production)
+            return ''.join(expand(s) for s in chosen_production)
+
         return expand(self.S)
 
     def to_finite_automaton(self):
-        fa = FiniteAutomaton.FiniteAutomaton(set(self.V_n) | {'end'}, self.V_t, {}, self.S, {'end'})
+        alphabet = list(self.V_t)
+        states = list(self.V_n)
+        states.append("end")
+        start_state = self.S
+        accept_state = "end"
 
-        for non_terminal, productions in self.P.items():
-            for production in productions:
-                if len(production) == 2:
-                    input_char, next_state = production
-                    fa.transitions[(non_terminal, input_char)] = {next_state}
-                elif len(production) == 1:
-                    input_char = production[0]
-                    if input_char in self.V_t:
-                        fa.transitions[(non_terminal, input_char)] = {'end'}
-                    else:
-                        fa.transitions[(non_terminal, '')] = {input_char}
+        transitions = []
+        for production in self.P:
+            parts = production.split("-")
+            left_side = parts[0]
+            right_side = parts[1]
 
-        return fa
+            if len(right_side) == 1 and right_side in self.V_t:
+                transitions.append({'src': left_side, 'char': right_side, 'dest': accept_state})
+            elif len(right_side) > 1:
+                transitions.append({'src': left_side, 'char': right_side[0], 'dest': right_side[1]})
+
+        return FiniteAutomaton(states, alphabet, transitions, start_state, accept_state)
