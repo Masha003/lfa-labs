@@ -1,0 +1,12 @@
+{
+  "name": "regulargrammar",
+  "version": "1.0.0",
+  "description": "Grammar definition and converting it to Finite Automaton",
+  "main": "main.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Maria Colta",
+  "license": "ISC"
+}
