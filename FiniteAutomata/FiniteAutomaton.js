@@ -44,5 +44,3 @@ export class FiniteAutomaton {
     );
   }
 }
-
-export default FiniteAutomaton;
