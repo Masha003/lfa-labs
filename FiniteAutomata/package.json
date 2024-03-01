@@ -1,0 +1,12 @@
+{
+  "name": "finite_automata",
+  "version": "1.0.0",
+  "description": "Determinism in Finite Automata. Conversion from NDFA to DFA. Chomsky Hierarchy",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Maria Colta",
+  "license": "ISC"
+}
