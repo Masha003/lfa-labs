@@ -140,19 +140,15 @@ export class Grammar {
         this.non_terminals.includes(symbol)
       );
 
-      // Check for Type 3 (Regular) restrictions
       if (
         !(
-          (
-            (terminalSymbols.length === 1 && nonTerminalSymbols.length <= 1) || // A -> aB or A -> a
-            rightSide === "$"
-          ) // A -> ε (assuming '$' represents the empty string)
+          (terminalSymbols.length === 1 && nonTerminalSymbols.length <= 1) ||
+          rightSide === "$"
         )
       ) {
         isType3 = false;
       }
 
-      // Check for Type 2 (Context-Free) restrictions
       if (
         leftSide.length !== 1 ||
         this.non_terminals.indexOf(leftSide) === -1
@@ -160,8 +156,6 @@ export class Grammar {
         isType2 = false;
       }
 
-      // Check for Type 1 (Context-Sensitive) restrictions: |β| >= |α|
-      // This simple implementation assumes all non-terminals and terminals have a "length" of 1.
       if (rightSide.length < leftSide.length) {
         isType1 = false;
       }
@@ -178,5 +172,3 @@ export class Grammar {
     }
   }
 }
-
-// export default Grammar;
