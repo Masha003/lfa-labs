@@ -1,45 +1,41 @@
 export class FiniteAutomaton {
-  constructor(states, alphabet, transitions, start_state, accept_state) {
-    this.states = states;
-    this.alphabet = alphabet;
-    this.transitions = transitions;
-    this.start_state = start_state;
-    this.accept_state = accept_state;
+  constructor() {
+    this.states = ["q0", "q1", "q2", "q3"];
+    this.alphabet = ["a", "b"];
+    this.transitions = [
+      { src: "q0", char: "a", dest: "q1" },
+      { src: "q0", char: "a", dest: "q2" },
+      { src: "q1", char: "b", dest: "q1" },
+      { src: "q1", char: "a", dest: "q2" },
+      { src: "q2", char: "a", dest: "q1" },
+      { src: "q2", char: "b", dest: "q3" },
+    ];
+    this.start_state = "q0";
+    this.accept_state = "q3";
   }
 
-  accept(inputString) {
-    let currentStates = new Set([this.start_state]);
+  to_regular_grammar() {
+    let grammar = {
+      terminals: [],
+      non_terminals: [],
+      rules: [],
+      start: "",
+    };
 
-    for (let i = 0; i < inputString.length; i++) {
-      const inputSymbol = inputString[i];
-      let nextStates = new Set();
+    this.alphabet.forEach((char) => {
+      grammar.terminals.push(char);
+    });
 
-      currentStates.forEach((currentState) => {
-        const transitions = this.find_transitions(currentState, inputSymbol);
-        transitions.forEach((transition) => {
-          nextStates.add(transition.dest);
-        });
-      });
+    this.states.forEach((state) => {
+      grammar.non_terminals.push(state);
+    });
 
-      if (nextStates.size === 0) {
-        return false;
-      }
+    this.transitions.forEach((state) => {
+      grammar.rules.push(state.src + "-" + state.char + "->" + state.dest);
+    });
 
-      currentStates = nextStates;
-    }
-    for (let currState of currentStates) {
-      if (this.accept_state.includes(currState)) {
-        return true;
-      }
-    }
+    grammar.start = this.start_state;
 
-    return false;
-  }
-
-  find_transitions(currentState, inputSymbol) {
-    return this.transitions.filter(
-      (transition) =>
-        transition.src === currentState && transition.char === inputSymbol
-    );
+    return grammar;
   }
 }
