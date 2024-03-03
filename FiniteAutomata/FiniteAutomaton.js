@@ -27,7 +27,6 @@ export class FiniteAutomaton {
 
       currentStates = nextStates;
     }
-    console.log(currentStates);
     for (let currState of currentStates) {
       if (this.accept_state.includes(currState)) {
         return true;
