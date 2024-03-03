@@ -14,3 +14,5 @@ console.log(`Generated strings: ${testStrings}`);
 testStrings.forEach((s) => {
   console.log(`String '${s}' is accepted: ${fa.accept(s)}`);
 });
+
+console.log("Classification: ", grammar.classify());
