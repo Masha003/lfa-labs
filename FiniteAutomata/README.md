@@ -300,9 +300,15 @@ P={
 ```
 
 To determine the type of the grammar, I used the `classify` method described above. Here is the result:
+
 ![alt text](image-1.png)
 
 After running the methods from `FiniteAutomaton` class, we get the following result:
+
 ![alt text](image.png)
 
 In the beginning we have the grammar resulted after conversion from Finite Automaton. Next we determine if the FA is determinisitc or not. In our case, it is NFA. Therefore, we have the DFA that we can get from this specific NFA.
+
+Here is the visual representation of the DFA, made manually:
+
+![alt text](image-2.png)
