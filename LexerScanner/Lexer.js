@@ -11,6 +11,8 @@ const KEYWORDS = {
   function: "FUNCTION",
   return: "RETURN",
   let: "LET",
+  true: "TRUE",
+  false: "FALSE",
 };
 
 const OPERATOR = {
@@ -20,7 +22,7 @@ const OPERATOR = {
   div: "/",
   mod: "%",
   less: "<",
-  more: ">",
+  greater: ">",
   equal: "==",
   assign: "=",
 };
